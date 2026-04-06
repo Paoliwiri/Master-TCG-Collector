@@ -1,0 +1,120 @@
+/* --- VARIABLES DEL TEMA --- */
+:root {
+    --bg-page: #080808;
+    --bg-nav: rgba(8, 8, 8, 0.65);
+    --bg-card: #121212;
+    --bg-card-alt: #1a1a1a;
+    
+    --border-theme: rgba(255, 255, 255, 0.08);
+    --text-main: #f5f5f5;
+    --text-muted: #a3a3a3;
+    
+    --accent-main: #ee3574; 
+    --accent-hover: #d3205c; 
+    
+    --glass-blur: blur(20px) saturate(180%);
+}
+
+[data-theme="light"] {
+    --bg-page: #f4f4f5;
+    --bg-nav: rgba(255, 255, 255, 0.75);
+    --bg-card: #ffffff;
+    --bg-card-alt: #fafafa;
+    
+    --border-theme: rgba(0, 0, 0, 0.06);
+    --text-main: #18181b;
+    --text-muted: #71717a;
+}
+
+/* --- CLASES GLOBALES --- */
+body {
+    background-color: var(--bg-page);
+    color: var(--text-main);
+    transition: background-color 0.4s cubic-bezier(0.25, 0.1, 0.25, 1), color 0.4s ease;
+}
+
+.bg-nav { background-color: var(--bg-nav); backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur); }
+.bg-card { background-color: var(--bg-card); }
+.bg-card-alt { background-color: var(--bg-card-alt); }
+.border-theme { border-color: var(--border-theme); }
+.text-main { color: var(--text-main); }
+.text-muted { color: var(--text-muted); }
+
+.light-icon { display: none; }
+[data-theme="light"] .light-icon { display: block; }
+[data-theme="light"] .dark-icon { display: none; }
+
+/* Animaciones Apple Style */
+.group:hover .card-img { transform: scale(1.08); }
+.card-element { transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1); }
+.card-element:active { transform: scale(0.96); }
+.btn-apple { transition: transform 0.2s cubic-bezier(0.25, 1, 0.5, 1), background-color 0.3s, color 0.3s; }
+.btn-apple:active { transform: scale(0.92); }
+
+.glass-panel { background: var(--bg-card); box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25); }
+.view-transition { transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1), transform 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+.view-hidden { opacity: 0; transform: translateY(10px); pointer-events: none; }
+
+/* Swatches de Color */
+.color-swatch { 
+    width: 26px; height: 26px; border-radius: 50%; cursor: pointer; 
+    transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+    border: 2px solid rgba(255,255,255,0.1); 
+    flex-shrink: 0;
+}
+[data-theme="light"] .color-swatch { border-color: rgba(0,0,0,0.1); }
+.color-swatch:hover { transform: scale(1.15); }
+.color-swatch.active { 
+    box-shadow: 0 0 0 2px var(--bg-page), 0 0 0 4px var(--accent-main); 
+    transform: scale(1.15); 
+}
+
+/* Modal Búsqueda Visual */
+#image-search-modal {
+    position: fixed; inset: 0; z-index: 1000;
+    background: rgba(0, 0, 0, 0.5); backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    display: flex; align-items: center; justify-content: center; padding: 1.5rem;
+    opacity: 0; pointer-events: none; transition: opacity 0.3s;
+}
+#image-search-modal.active { opacity: 1; pointer-events: auto; }
+
+.visual-modal-content {
+    background: var(--bg-card); border: 1px solid var(--border-theme);
+    width: 100%; max-width: 600px; border-radius: 20px;
+    transform: scale(0.95); transition: transform 0.3s; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.2);
+}
+#image-search-modal.active .visual-modal-content { transform: scale(1); }
+
+/* Custom Context Menu */
+#custom-context-menu {
+    position: fixed; z-index: 999999; width: 220px;
+    background: var(--bg-nav); backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur);
+    border: 1px solid var(--border-theme); border-radius: 12px; box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+    transform-origin: top left; overflow: hidden; animation: menuPop 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.menu-item { padding: 12px 16px; cursor: pointer; font-size: 0.875rem; font-weight: 500; transition: background 0.2s; display: flex; align-items: center; gap: 10px; color: var(--text-main); }
+.menu-item:hover { background: var(--accent-main); color: white; }
+@keyframes menuPop { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
+
+.action-btn { color: white; transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); filter: drop-shadow(0 2px 4px rgba(0,0,0,0.4)); }
+.action-btn.active-heart { color: var(--accent-main); transform: scale(1.15); }
+.action-btn.active-compare { color: #3b82f6; transform: scale(1.15); }
+.action-btn:hover { transform: scale(1.1); }
+.card-selected-compare { border-color: #3b82f6 !important; box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3); transform: translateY(-4px); }
+
+/* Toast Notifications */
+#toast-container { position: fixed; bottom: 1.5rem; right: 1.5rem; z-index: 999999; display: flex; flex-direction: column; gap: 0.5rem; }
+.toast { background: var(--bg-card); border: 1px solid var(--border-theme); color: var(--text-main); padding: 1rem 1.5rem; border-radius: 0.75rem; box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1); display: flex; align-items: center; gap: 0.75rem; font-weight: 600; font-size: 0.875rem; animation: slideIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+.toast.toast-success { border-left: 4px solid var(--accent-main); }
+.toast.toast-error { border-left: 4px solid #ef4444; }
+.toast.toast-info { border-left: 4px solid #3b82f6; }
+.toast.hiding { animation: slideOut 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+@keyframes slideIn { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+@keyframes slideOut { from { transform: translateX(0); opacity: 1; } to { transform: translateX(100%); opacity: 0; } }
+
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: var(--bg-page); }
+::-webkit-scrollbar-thumb { background: var(--border-theme); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: var(--accent-main); }
