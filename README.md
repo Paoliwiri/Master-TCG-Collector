@@ -49,5 +49,5 @@ Este proyecto es estrictamente un agregador y un visor. No sería posible sin el
 ---
 
 <p align="center">
-  <i>Desarrollado con ❤️ para la comunidad de coleccionistas y apasionados del código.</i>
+  <i>Let me be a dreamer ❤️</i>
 </p>
